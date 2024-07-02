@@ -14,6 +14,8 @@ class Configuration:
     enable_rocm: bool = False
     rocm_versions: list[str] = field(default_factory=list)
 
+    enable_default: bool = False
+
     lockfile: str = "torch.lock"
 
     def from_toml(data: dict[str, str | list[str] | bool]) -> "Configuration":
@@ -38,6 +40,9 @@ class Configuration:
                     "https://download.pytorch.org/whl/",
                     f"+rocm{rocm_version}",
                 )
+
+        if self.enable_default:
+            resolves["default"] = ("https://download.pytorch.org/whl/torch_stable.html", "")
 
         if self.enable_cpu:
             resolves["cpu"] = ("https://download.pytorch.org/whl/cpu", "+cpu")

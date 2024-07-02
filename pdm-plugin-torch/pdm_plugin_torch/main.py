@@ -90,7 +90,7 @@ def get_provider(
     )
 
     overrides = {
-        normalize_name(k): v for k, v in project.pyproject.resolution_overrides.items()
+        normalize_name(k): v for k, v in project.pyproject.resolution.items()
     }
 
     locked_repository: LockedRepository | None = None
